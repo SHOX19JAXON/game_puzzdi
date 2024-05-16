@@ -59,7 +59,7 @@ class LocalDatabaseHelper {
 
   Future<List<Map<String, dynamic>>> getAllGameData() async {
     final Database db = await database;
-      String orderBy = "moves DESC";
+      String orderBy = "moves ASC";
 
     return await db.query('GameData',orderBy: orderBy );
   }
@@ -76,7 +76,8 @@ class LocalDatabaseHelper {
 
     return await db.query('GameData', orderBy: orderBy, limit: 1);
   }
-
+//ASC
+//DESC
 
 
 }

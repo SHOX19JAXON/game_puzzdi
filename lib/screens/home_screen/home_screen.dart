@@ -19,24 +19,28 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TextButton(onPressed: (){
-              Navigator.push(context,MaterialPageRoute(builder: (context){
-                return GameScreen();
-              }));
-            }, child: const Text("Start",)),
-             SizedBox(height: 20.h,),
             TextButton(
-                onPressed: () async {
-
+                onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return GameHistory();
+                    return GameScreen();
                   }));
                 },
-                child: Text("Tarix")),
+                child: const Text(
+                  "Start",
+                )),
+            SizedBox(
+              height: 20.h,
+            ),
+            TextButton(
+                onPressed: () async {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return const GameHistory();
+                  }));
+                },
+                child: const Text("History")),
           ],
         ),
       ),
     );
   }
 }
-

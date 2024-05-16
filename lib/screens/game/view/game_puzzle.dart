@@ -101,7 +101,6 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 
-
 import '../game_controller/game_controller.dart';
 
 class GameScreen extends StatefulWidget {
@@ -124,22 +123,20 @@ class _GameScreenState extends State<GameScreen> {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
     return Scaffold(
-
-      appBar: AppBar(title: Text('15 Puzzle game'),
+      appBar: AppBar(
+        title: Text('15 Puzzle game'),
       ),
       body: Obx(
         () => Column(
           children: [
             Padding(
-              padding:  EdgeInsets.symmetric(horizontal: 10.w,vertical: 5.h),
+              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
               child: Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: Colors.blue
-                ),
+                    borderRadius: BorderRadius.circular(15),
+                    color: Colors.blue),
                 width: double.infinity,
                 height: 100.h,
-
                 child: Column(
                   children: [
                     Padding(
@@ -148,45 +145,53 @@ class _GameScreenState extends State<GameScreen> {
                       child: Row(
                         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                         Icon(Icons.timer,color: Colors.white,),SizedBox(width: 10.w,),
+                          const Icon(
+                            Icons.timer,
+                            color: Colors.white,
+                          ),
+                          SizedBox(
+                            width: 10.w,
+                          ),
                           Text(
                             "Timer: ${controller.getMinutelyText(controller.timer.value)}",
-                            style: TextStyle(fontSize: 20,color: Colors.white),
+                            style: TextStyle(fontSize: 20, color: Colors.white),
                           ),
-
                         ],
                       ),
-
                     ),
-                    Spacer(),
-
+                    const Spacer(),
                     Padding(
                       padding:
-                      EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+                          EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
                       child: Row(
                         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-
-                          Icon(Icons.move_down,color:  Colors.white,),SizedBox(width: 10.w,),
+                          const Icon(
+                            Icons.move_down,
+                            color: Colors.white,
+                          ),
+                          SizedBox(
+                            width: 10.w,
+                          ),
                           Text(
                             "Moves: ${controller.moves.value}",
-                            style: TextStyle(fontSize: 20,color: Colors.white),
+                            style: const TextStyle(
+                                fontSize: 20, color: Colors.white),
                           )
                         ],
                       ),
-
                     ),
                   ],
                 ),
               ),
             ),
             SizedBox(height: 80.h),
-
             Expanded(
               child: GetBuilder<GameController>(
                 builder: (controller) {
                   return Padding(
-                    padding:  EdgeInsets.symmetric(horizontal: 10.w,vertical: 5.h),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
                     child: GridView.builder(
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
@@ -208,7 +213,6 @@ class _GameScreenState extends State<GameScreen> {
                                   ? Colors.blue.withOpacity(0.4)
                                   : Colors.blue,
                             ),
-                          
                             alignment: Alignment.center,
                             child: Text(
                               controller.squares[index] != 0
@@ -227,22 +231,8 @@ class _GameScreenState extends State<GameScreen> {
                 },
               ),
             ),
-            // SizedBox(height: 20,),
-            // SizedBox(height: 20,),
-            TextButton(onPressed: (){
-              // print(minTimer);
-              controller.squares = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0];
-              controller.moveSquare(context, 5);
-              // controller.sonlar(controller.squares);
-            }, child: Text("GOLIB"))
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          controller.shuffle();
-        },
-        child: Icon(Icons.shuffle),
       ),
     );
   }

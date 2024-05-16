@@ -1,10 +1,9 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../data/local/locol.dart';
 import '../../game_record_histori/game_history.dart';
+
 class GameController extends GetxController {
   List<int> squares = [];
   List<int> record = [];
@@ -14,7 +13,6 @@ class GameController extends GetxController {
 
   bool isTrue = true;
 
-
   @override
   void onInit() {
     super.onInit();
@@ -22,27 +20,23 @@ class GameController extends GetxController {
     shuffle();
   }
 
-
-
   void shuffle() {
     squares.shuffle();
     emptyIndex = squares.indexOf(0);
     update();
   }
- sonlar (List son){
-  son.sort();
-}
+
   bool isGameFinished() {
     for (int i = 0; i < squares.length - 1; i++) {
-      // if (squares[i] != i + 1) {
-      //   return false;
-      // }
-      squares = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0];
+      if (squares[i] != i + 1) {
+        return false;
+      }
+      squares = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
     }
     return true;
   }
 
-  void moveSquare(BuildContext context,int index) {
+  void moveSquare(BuildContext context, int index) {
     if ((index == emptyIndex - 1 && index % 4 != 3) ||
         (index == emptyIndex + 1 && index % 4 != 0) ||
         index == emptyIndex - 4 ||
@@ -54,7 +48,6 @@ class GameController extends GetxController {
       emptyIndex = index;
       update();
       if (isGameFinished()) {
-
         Get.snackbar(
           'Congratulations!',
           'You solved the puzzle!',
@@ -65,55 +58,61 @@ class GameController extends GetxController {
         LocalDatabaseHelper().saveGameData(moves.value, timer.value);
 
         Get.dialog(
-            AlertDialog(
-              title: const Center(
-                child: Text('Congratulations!',style: TextStyle(
-                    color: Colors.green),),
+          AlertDialog(
+            title: const Center(
+              child: Text(
+                'Congratulations!',
+                style: TextStyle(color: Colors.green),
               ),
-              content: const Row(
-                children: [
-                  Spacer(),
-                  Text('You solved the puzzle!',style: TextStyle(
-                      color: Colors.blue),),
-                  Spacer(),
-                ],
-              ),
-              actions: [
-               Row(
-                 children: [
-                   TextButton(
-                     onPressed: () {
-                       isTrue = true;
-                       timerLogic();
-                       shuffle();
-                       Get.back();
-                       moves.value= 0;
-                     },
-                     child: const Text('Play Again',style: TextStyle(
-                         color: Colors.blue),),
-                   ),
-                   Spacer(),
-                   TextButton(
-                     onPressed: () {
-                       Navigator.pushReplacement(context , MaterialPageRoute(builder: (context) {
-                         return GameHistory();
-                       }));
-                     },
-                     child: const Text('Tarix',style: TextStyle(
-                         color: Colors.blue),),
-                   ),
-                 ],
-               )
+            ),
+            content: const Row(
+              children: [
+                Spacer(),
+                Text(
+                  'You solved the puzzle!',
+                  style: TextStyle(color: Colors.blue),
+                ),
+                Spacer(),
               ],
             ),
+            actions: [
+              Row(
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      isTrue = true;
+                      timerLogic();
+                      shuffle();
+                      Get.back();
+                      moves.value = 0;
+                    },
+                    child: const Text(
+                      'Play Again',
+                      style: TextStyle(color: Colors.blue),
+                    ),
+                  ),
+                  const Spacer(),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) {
+                        return const GameHistory();
+                      }));
+                    },
+                    child: const Text(
+                      'History',
+                      style: TextStyle(color: Colors.blue),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
         );
-        timer.value = 0 ;
+        timer.value = 0;
         isTrue = false;
-        moves.value= 0;
-
-
-  }
-
+        moves.value = 0;
+      }
     }
   }
 
@@ -121,7 +120,6 @@ class GameController extends GetxController {
     while (isTrue) {
       await Future.delayed(const Duration(seconds: 1));
       timer++;
-      print("kirdi");
     }
   }
 
@@ -134,5 +132,4 @@ class GameController extends GetxController {
 
     return "$minute : $second";
   }
-
 }
